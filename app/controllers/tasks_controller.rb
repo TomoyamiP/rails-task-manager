@@ -19,8 +19,21 @@ class TasksController < ApplicationController
         render :new
       end
   end
-end
 
-def task_params
-  params.require(:task).permit(:title, :details, :completed)
+  def edit
+    @task = Task.params([:id])
+  end
+
+  def update
+    @task = Task.find(params[:id])
+    if @task.update(task_params)
+      redirect_to tasks_path(@task)
+    else
+      render :edit
+    end
+  end
+
+  def task_params
+    params.require(:task).permit(:title, :details, :completed)
+  end
 end
