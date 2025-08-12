@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.params([:id])
+    @task = Task.find(params[:id])
   end
 
   def update
@@ -31,6 +31,12 @@ class TasksController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    redirect_to tasks_path, status: :see_other
   end
 
   def task_params
